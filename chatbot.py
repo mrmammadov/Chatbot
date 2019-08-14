@@ -6,7 +6,7 @@ import sapcai
 import os 
 
 app = Flask(__name__)
-port = int(os.environ["PATH"])
+port = int(os.environ["PORT"])
 
 @app.route('/', methods=['POST'])
 def index():
