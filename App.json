@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
     "name": "Sato crypto bot",
     "description": "The server side for Sato.",
@@ -12,4 +13,20 @@
         }
       }
     }
+=======
+{
+    "name": "Sato crypto bot",
+    "description": "The server side for Sato.",
+    "image": "heroku/python",
+    "repository": "https://github.com/mrmammadov/Chatbot",
+    "keywords": ["python", "flask" ],
+    "addons": [ "heroku-postgresql" ],
+    "environments": {
+      "test": {
+        "scripts": {
+          "test": "server.py test"
+        }
+      }
+    }
+>>>>>>> 0769d7bfb4f3dda0d9297c3caf8dbec989d3884c
   }
