@@ -8,7 +8,9 @@ import psycopg2
 import logging
 
 app = Flask(__name__)
-port = int(os.environ["PORT"])
+# port = int(os.environ["PORT"])
+# port = 5000
+
 
 #Split List like objects into chunks
 def chunks(l, n):
@@ -52,7 +54,8 @@ def db_connect_insert():
 @app.route('/', methods=['GET','POST'])
 def index():
     global data
-    data = json.loads(request.get_data())
+    if request.get_data():
+        data = json.loads(request.get_data())
 #     conversation_id = data['conversation']['id']
 #     response = requests.get('https://api.cai.tools.sap/connect/v1/conversations/' + conversation_id,
 #       headers={'Authorization': '54187a3945f3af9ea86d40ebca0400f2'}
@@ -61,7 +64,10 @@ def index():
 #     print(response.text)
 #     pp.pprint(conversation_id)
 
-    return render_template('home.html', data=data)
+        return render_template('home.html', data=data)
+
+    else:
+        return 'No data provided'
     # if data['nlp']['intents'][0]['slug'] == 'no':
     #     db_connect_insert()
     #     return jsonify( 
@@ -92,4 +98,7 @@ def errors():
     print(json.loads(request.get_data()))
     return jsonify(status=200)
 
-app.run(port=port,host="0.0.0.0")
+# app.run(port=port,host="0.0.0.0")
+
+if __name__ == "__main__":
+    app.run(debug=True)
