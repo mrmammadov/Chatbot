@@ -56,41 +56,32 @@ def index():
     global data
     if request.get_data():
         data = json.loads(request.get_data())
-#     conversation_id = data['conversation']['id']
-#     response = requests.get('https://api.cai.tools.sap/connect/v1/conversations/' + conversation_id,
-#       headers={'Authorization': '54187a3945f3af9ea86d40ebca0400f2'}
-#     )
 
-#     print(response.text)
-#     pp.pprint(conversation_id)
+        return data
 
-        return render_template('home.html', data=data)
-
+    if data['nlp']['intents'][0]['slug'] == 'no':
+        db_connect_insert()
+        return jsonify( 
+        status=200, 
+        replies=[{ 
+          'type': 'text', 
+          'content': 'Took a note on that', 
+        }], 
+        conversation={ 
+          'memory': { 'key': 'value' } 
+        } 
+      ) 
     else:
-        return 'No data provided'
-    # if data['nlp']['intents'][0]['slug'] == 'no':
-    #     db_connect_insert()
-    #     return jsonify( 
-    #     status=200, 
-    #     replies=[{ 
-    #       'type': 'text', 
-    #       'content': 'Took a note on that', 
-    #     }], 
-    #     conversation={ 
-    #       'memory': { 'key': 'value' } 
-    #     } 
-    #   ) 
-    # else:
-    #     return jsonify( 
-    #     status=200, 
-    #     replies=[{ 
-    #       'type': 'text', 
-    #       'content': 'Thank you!', 
-    #     }], 
-    #     conversation={ 
-    #       'memory': { 'key': 'value' } 
-    #     } 
-    #   )
+        return jsonify( 
+        status=200, 
+        replies=[{ 
+          'type': 'text', 
+          'content': 'Thank you!', 
+        }], 
+        conversation={ 
+          'memory': { 'key': 'value' } 
+        } 
+      )
         
 
 @app.route('/errors', methods=['POST'])
