@@ -55,7 +55,7 @@ def index():
 
     
     if data['nlp']['intents'][0]['slug'] == 'no':
-        
+        db_connect_insert()
         return jsonify( 
         status=200, 
         replies=[{ 
@@ -67,7 +67,6 @@ def index():
         } 
       ) 
     else:
-        
         return jsonify( 
         status=200, 
         replies=[{ 
