@@ -49,7 +49,7 @@ def db_connect_insert():
     cur.close()
     conn.close()
 
-@app.route('/', methods=['POST'])
+@app.route('/', methods=['GET','POST'])
 def index():
     global data
     data = json.loads(request.get_data())
