@@ -8,7 +8,7 @@ import psycopg2
 import logging
 
 app = Flask(__name__)
-# port = int(os.environ["PORT"])
+port = int(os.environ["PORT"])
 # port = 5000
 
 
@@ -98,7 +98,7 @@ def errors():
     print(json.loads(request.get_data()))
     return jsonify(status=200)
 
-# app.run(port=port,host="0.0.0.0")
+app.run(port=port,host="0.0.0.0")
 
-if __name__ == "__main__":
-    app.run(debug=True)
+# if __name__ == "__main__":
+#     app.run(debug=True)
