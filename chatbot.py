@@ -44,6 +44,7 @@ def db_connect_insert():
 
 @app.route('/', methods=['POST'])
 def index():
+    global data
     data = json.loads(request.get_data())
 #     conversation_id = data['conversation']['id']
 #     response = requests.get('https://api.cai.tools.sap/connect/v1/conversations/' + conversation_id,
