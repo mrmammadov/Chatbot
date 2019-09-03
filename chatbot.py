@@ -21,7 +21,7 @@ def getMessages():
       headers={'Authorization': '54187a3945f3af9ea86d40ebca0400f2'}
     )
     conv_dictionary = json.loads(response.text)
-    conv_list = [conv_dictionary['results']['messages'][i]['attachment']['content'] for i in range(len(conv_dictionary['results']['messages']))]
+    conv_list = [str(conv_dictionary['results']['messages'][i]['attachment']['content']) for i in range(len(conv_dictionary['results']['messages']))]
     conv_generator = chunks(conv_list,2)
     return conv_generator
 
