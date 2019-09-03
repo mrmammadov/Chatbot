@@ -5,6 +5,7 @@ import pprint as pp
 import sapcai
 import os 
 import psycopg2
+import logging
 
 app = Flask(__name__)
 port = int(os.environ["PORT"])
@@ -21,9 +22,12 @@ def getMessages():
       headers={'Authorization': '54187a3945f3af9ea86d40ebca0400f2'}
     )
     conv_dictionary = json.loads(response.text)
-    conv_list = [str(conv_dictionary['results']['messages'][i]['attachment']['content']) for i in range(len(conv_dictionary['results']['messages']))]
-    conv_generator = chunks(conv_list,2)
-    return conv_generator
+    if conv_dictionary:
+        conv_list = [str(conv_dictionary['results']['messages'][i]['attachment']['content']) for i in range(len(conv_dictionary['results']['messages']))]
+        conv_generator = chunks(conv_list,2)
+        return conv_generator
+    else:
+        logging.log(logging.WARNING, 'Empty Response Object')
 
 def db_connect_insert():
     conn = psycopg2.connect(dbname="d51dpnoammut78", user="mfeteccnqkvtor", 
