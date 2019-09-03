@@ -18,7 +18,10 @@ def chunks(l, n):
 
 #Helper function to get messages between Bots and users
 def getMessages():
-    response = requests.get('https://api.cai.tools.sap/connect/v1/conversations/' + data['nlp']['uuid'],
+    # response = requests.get('https://api.cai.tools.sap/connect/v1/conversations/' + data['nlp']['uuid'],
+    #   headers={'Authorization': '54187a3945f3af9ea86d40ebca0400f2'}
+    # )
+    response = requests.get('https://api.cai.tools.sap/connect/v1/conversations/' + 'f727adaa-90fd-455d-b855-c2d656df66f4',
       headers={'Authorization': '54187a3945f3af9ea86d40ebca0400f2'}
     )
     conv_dictionary = json.loads(response.text)
