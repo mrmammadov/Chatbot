@@ -54,10 +54,11 @@ def db_connect_insert():
 @app.route('/', methods=['GET','POST'])
 def index():
     global data
-    if request.get_data():
-        data = json.loads(request.get_data())
+    # if request.get_data():
+    #     data = json.loads(request.get_data())
 
-        return data
+    #     return data
+    data = json.loads(request.get_data())
 
     if data['nlp']['intents'][0]['slug'] == 'no':
         db_connect_insert()
@@ -76,7 +77,7 @@ def index():
         status=200, 
         replies=[{ 
           'type': 'text', 
-          'content': 'Thank you!', 
+          'content': 'Thank you!!!', 
         }], 
         conversation={ 
           'memory': { 'key': 'value' } 
