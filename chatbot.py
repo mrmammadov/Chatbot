@@ -34,7 +34,7 @@ def db_connect_insert():
     i = getMessages()
     while True:
         try:
-            cur.execute("INSERT INTO test (num, data) VALUES (%s, %s)", next(i))
+            cur.execute("INSERT INTO messages (user_messages, bot_messages) VALUES (%s, %s)", tuple(next(i)))
         except StopIteration:
             break
             
