@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import json
 import requests
 import pprint as pp
@@ -61,30 +61,30 @@ def index():
 #     print(response.text)
 #     pp.pprint(conversation_id)
 
-    
-    if data['nlp']['intents'][0]['slug'] == 'no':
-        db_connect_insert()
-        return jsonify( 
-        status=200, 
-        replies=[{ 
-          'type': 'text', 
-          'content': 'Took a note on that', 
-        }], 
-        conversation={ 
-          'memory': { 'key': 'value' } 
-        } 
-      ) 
-    else:
-        return jsonify( 
-        status=200, 
-        replies=[{ 
-          'type': 'text', 
-          'content': 'Thank you!', 
-        }], 
-        conversation={ 
-          'memory': { 'key': 'value' } 
-        } 
-      )
+    return render_template('home.html', data=data)
+    # if data['nlp']['intents'][0]['slug'] == 'no':
+    #     db_connect_insert()
+    #     return jsonify( 
+    #     status=200, 
+    #     replies=[{ 
+    #       'type': 'text', 
+    #       'content': 'Took a note on that', 
+    #     }], 
+    #     conversation={ 
+    #       'memory': { 'key': 'value' } 
+    #     } 
+    #   ) 
+    # else:
+    #     return jsonify( 
+    #     status=200, 
+    #     replies=[{ 
+    #       'type': 'text', 
+    #       'content': 'Thank you!', 
+    #     }], 
+    #     conversation={ 
+    #       'memory': { 'key': 'value' } 
+    #     } 
+    #   )
         
 
 @app.route('/errors', methods=['POST'])
