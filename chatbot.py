@@ -57,10 +57,12 @@ def index():
     # if request.get_data():
     
     # return render_template('home.html', data=data)     
-    try:
-        data = json.loads(request.get_data())
-    except ValueError:  # includes simplejson.decoder.JSONDecodeError
-        print('Decoding JSON has failed')
+    # try:
+    #     data = json.loads(request.get_data())
+    # except ValueError:  # includes simplejson.decoder.JSONDecodeError
+    #     print('Decoding JSON has failed')
+
+    data = json.loads(request.get_data())
     if data['nlp']['intents'][0]['slug'] == 'no':
         db_connect_insert()
         return jsonify( 
