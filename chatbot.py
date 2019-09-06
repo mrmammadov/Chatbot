@@ -54,35 +54,35 @@ def db_connect_insert():
 @app.route('/', methods=['GET','POST'])
 def index():
     global data
-    # if request.get_data():
-    #     data = json.loads(request.get_data())
+    if request.get_data():
+        data = json.loads(request.get_data())
+        print(data)
 
-    #     return data
-    data = json.loads(request.get_data())
+        if data['nlp']['intents'][0]['slug'] == 'no':
+            db_connect_insert()
+            return jsonify( 
+            status=200, 
+            replies=[{ 
+              'type': 'text', 
+              'content': 'Took a note on that', 
+            }], 
+            conversation={ 
+              'memory': { 'key': 'value' } 
+            } 
+          ) 
+        else:
+            return jsonify( 
+            status=200, 
+            replies=[{ 
+              'type': 'text', 
+              'content': 'Thank you!!!', 
+            }], 
+            conversation={ 
+              'memory': { 'key': 'value' } 
+            } 
+          )
 
-    if data['nlp']['intents'][0]['slug'] == 'no':
-        db_connect_insert()
-        return jsonify( 
-        status=200, 
-        replies=[{ 
-          'type': 'text', 
-          'content': 'Took a note on that', 
-        }], 
-        conversation={ 
-          'memory': { 'key': 'value' } 
-        } 
-      ) 
-    else:
-        return jsonify( 
-        status=200, 
-        replies=[{ 
-          'type': 'text', 
-          'content': 'Thank you!!!', 
-        }], 
-        conversation={ 
-          'memory': { 'key': 'value' } 
-        } 
-      )
+    return 'None'  
         
 
 @app.route('/errors', methods=['POST'])
