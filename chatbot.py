@@ -55,11 +55,11 @@ def db_connect_insert():
 def index():
     global data
     # if request.get_data():
-    data = json.loads(request.get_data())
-        
+    data = request.get_data()
+    return render_template('home.html', data=data)     
 
-    if data['nlp']['intents'][0]['slug'] == 'no':
-      return request.get_data()
+    # if data['nlp']['intents'][0]['slug'] == 'no':
+    #   return request.get_data()
         # db_connect_insert()
         #     return jsonify( 
         #     status=200, 
