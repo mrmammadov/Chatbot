@@ -59,29 +59,30 @@ def index():
         
 
         if data['nlp']['intents'][0]['slug'] == 'no':
-            db_connect_insert()
-            return jsonify( 
-            status=200, 
-            replies=[{ 
-              'type': 'text', 
-              'content': 'Took a fucking note on that', 
-            }], 
-            conversation={ 
-              'memory': { 'key': 'value' } 
-            } 
-          ) 
-        else:
-            return jsonify( 
-            status=200, 
-            replies=[{ 
-              'type': 'text', 
-              'content': 'Thank you!!!', 
-            }], 
-            conversation={ 
-              'memory': { 'key': 'value' } 
-            } 
-          )
-        return render_template('home.html', data=data)
+          return request.get_data()
+            # db_connect_insert()
+        #     return jsonify( 
+        #     status=200, 
+        #     replies=[{ 
+        #       'type': 'text', 
+        #       'content': 'Took a fucking note on that', 
+        #     }], 
+        #     conversation={ 
+        #       'memory': { 'key': 'value' } 
+        #     } 
+        #   ) 
+        # else:
+        #     return jsonify( 
+        #     status=200, 
+        #     replies=[{ 
+        #       'type': 'text', 
+        #       'content': 'Thank you!!!', 
+        #     }], 
+        #     conversation={ 
+        #       'memory': { 'key': 'value' } 
+        #     } 
+        #   )
+        # return render_template('home.html', data=data)
 
     return 'None'  
         
