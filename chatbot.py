@@ -64,7 +64,7 @@ def index():
             status=200, 
             replies=[{ 
               'type': 'text', 
-              'content': 'Took a note on that', 
+              'content': 'Took a fucking note on that', 
             }], 
             conversation={ 
               'memory': { 'key': 'value' } 
