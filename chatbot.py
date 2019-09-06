@@ -83,7 +83,7 @@ def index():
         #   )
         return render_template('home.html', data=data)
 
-    return 'None'  
+    # return 'None'  
         
 
 @app.route('/errors', methods=['POST'])
