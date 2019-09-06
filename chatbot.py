@@ -20,12 +20,12 @@ def chunks(l, n):
 
 #Helper function to get messages between Bots and users
 def getMessages():
-    # response = requests.get('https://api.cai.tools.sap/connect/v1/conversations/' + data['nlp']['uuid'],
-    #   headers={'Authorization': '54187a3945f3af9ea86d40ebca0400f2'}
-    # )
-    response = requests.get('https://api.cai.tools.sap/connect/v1/conversations/' + 'f727adaa-90fd-455d-b855-c2d656df66f4',
+    response = requests.get('https://api.cai.tools.sap/connect/v1/conversations/' + data['conversation']['id'],
       headers={'Authorization': '54187a3945f3af9ea86d40ebca0400f2'}
     )
+    # response = requests.get('https://api.cai.tools.sap/connect/v1/conversations/' + 'f727adaa-90fd-455d-b855-c2d656df66f4',
+    #   headers={'Authorization': '54187a3945f3af9ea86d40ebca0400f2'}
+    # )
     conv_dictionary = json.loads(response.text)
     if conv_dictionary:
         conv_list = [str(conv_dictionary['results']['messages'][i]['attachment']['content']) for i in range(len(conv_dictionary['results']['messages']))]
@@ -55,36 +55,34 @@ def db_connect_insert():
 def index():
     global data
     # if request.get_data():
-    data = request.get_data()
-    return render_template('home.html', data=data)     
+    data = json.loads(request.get_data())
+    # return render_template('home.html', data=data)     
 
-    # if data['nlp']['intents'][0]['slug'] == 'no':
-    #   return request.get_data()
-        # db_connect_insert()
-        #     return jsonify( 
-        #     status=200, 
-        #     replies=[{ 
-        #       'type': 'text', 
-        #       'content': 'Took a fucking note on that', 
-        #     }], 
-        #     conversation={ 
-        #       'memory': { 'key': 'value' } 
-        #     } 
-        #   ) 
-        # else:
-        #     return jsonify( 
-        #     status=200, 
-        #     replies=[{ 
-        #       'type': 'text', 
-        #       'content': 'Thank you!!!', 
-        #     }], 
-        #     conversation={ 
-        #       'memory': { 'key': 'value' } 
-        #     } 
-        #   )
-        # return render_template('home.html', data=data)
+    if data['nlp']['intents'][0]['slug'] == 'no':
+        db_connect_insert()
+            return jsonify( 
+            status=200, 
+            replies=[{ 
+              'type': 'text', 
+              'content': 'Took a fucking note on that', 
+            }], 
+            conversation={ 
+              'memory': { 'key': 'value' } 
+            } 
+          ) 
+        else:
+            return jsonify( 
+            status=200, 
+            replies=[{ 
+              'type': 'text', 
+              'content': 'Thank you!!!', 
+            }], 
+            conversation={ 
+              'memory': { 'key': 'value' } 
+            } 
+          )
 
-    # return 'None'  
+    return 'None'  
         
 
 @app.route('/errors', methods=['POST'])
