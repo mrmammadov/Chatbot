@@ -51,10 +51,9 @@ def db_connect_insert():
     cur.close()
     conn.close()
 
-@app.route('/', methods=['GET','POST'])
+@app.route('/', methods=['POST'])
 def index():
     global data
-    data = ''
     # if request.get_data():
     
     # return render_template('home.html', data=data)     
