@@ -54,13 +54,13 @@ def db_connect_insert():
 @app.route('/', methods=['GET','POST'])
 def index():
     global data
-    if request.get_data():
-        data = json.loads(request.get_data())
+    # if request.get_data():
+    data = json.loads(request.get_data())
         
 
-        if data['nlp']['intents'][0]['slug'] == 'no':
-          return request.get_data()
-            # db_connect_insert()
+    if data['nlp']['intents'][0]['slug'] == 'no':
+      return request.get_data()
+        # db_connect_insert()
         #     return jsonify( 
         #     status=200, 
         #     replies=[{ 
@@ -84,7 +84,7 @@ def index():
         #   )
         # return render_template('home.html', data=data)
 
-    return 'None'  
+    # return 'None'  
         
 
 @app.route('/errors', methods=['POST'])
