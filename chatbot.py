@@ -56,7 +56,7 @@ def index():
     global data
     if request.get_data():
         data = json.loads(request.get_data())
-        print(data)
+        
 
         if data['nlp']['intents'][0]['slug'] == 'no':
             db_connect_insert()
@@ -81,6 +81,7 @@ def index():
               'memory': { 'key': 'value' } 
             } 
           )
+        return render_template('home.html', data=data)
 
     return 'None'  
         
