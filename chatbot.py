@@ -55,9 +55,12 @@ def db_connect_insert():
 def index():
     global data
     # if request.get_data():
-    data = json.loads(request.get_data())
+    
     # return render_template('home.html', data=data)     
-
+    try:
+        data = json.loads(request.get_data())
+    except ValueError:  # includes simplejson.decoder.JSONDecodeError
+        print('Decoding JSON has failed')
     if data['nlp']['intents'][0]['slug'] == 'no':
         db_connect_insert()
         return jsonify( 
