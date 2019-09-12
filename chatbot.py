@@ -34,22 +34,50 @@ def getMessages():
     else:
         logging.log(logging.WARNING, 'Empty Response Object')
 
-def db_connect_insert():
+def update_bad_conv():
     conn = psycopg2.connect(dbname="d51dpnoammut78", user="mfeteccnqkvtor", 
             password="8c505e55eb950c9b8a5a8a3fb3118b103fc7dabac9b7eb0737b156c9f695fad5", 
             host='ec2-54-217-235-87.eu-west-1.compute.amazonaws.com')
     cur = conn.cursor()
-    
-    i = getMessages()
-    while True:
-        try:
-            cur.execute("INSERT INTO messages (user_messages, bot_messages) VALUES (%s, %s)", tuple(next(i)))
-        except StopIteration:
-            break
-            
+    cur.execute("SELECT bad_conv FROM messages LIMIT 1;")
+    counter = cur.fetchone()[0]
+    counter = counter + 1
+    cur.execute("UPDATE messages SET bad_conv = %s", [counter])
     conn.commit()
     cur.close()
     conn.close()
+
+def update_good_conv():
+    conn = psycopg2.connect(dbname="d51dpnoammut78", user="mfeteccnqkvtor", 
+            password="8c505e55eb950c9b8a5a8a3fb3118b103fc7dabac9b7eb0737b156c9f695fad5", 
+            host='ec2-54-217-235-87.eu-west-1.compute.amazonaws.com')
+    cur = conn.cursor()
+    cur.execute("SELECT good_conv FROM messages LIMIT 1;")
+    counter = cur.fetchone()[0]
+    counter = counter + 1
+    cur.execute("UPDATE messages SET good_conv = %s", [counter])
+    conn.commit()
+    cur.close()
+    conn.close()
+
+
+
+# def db_connect_insert():
+#     conn = psycopg2.connect(dbname="d51dpnoammut78", user="mfeteccnqkvtor", 
+#             password="8c505e55eb950c9b8a5a8a3fb3118b103fc7dabac9b7eb0737b156c9f695fad5", 
+#             host='ec2-54-217-235-87.eu-west-1.compute.amazonaws.com')
+#     cur = conn.cursor()
+    
+    # i = getMessages()
+    # while True:
+    #     try:
+    #         cur.execute("INSERT INTO messages (user_messages, bot_messages) VALUES (%s, %s)", tuple(next(i)))
+    #     except StopIteration:
+    #         break
+            
+    # conn.commit()
+    # cur.close()
+    # conn.close()
 
 @app.route('/', methods=['POST'])
 def index():
@@ -64,18 +92,20 @@ def index():
 
     data = json.loads(request.get_data())
     if data['nlp']['intents'][0]['slug'] == 'no':
-        db_connect_insert()
+        # db_connect_insert()
+        update_bad_conv()
         return jsonify( 
         status=200, 
         replies=[{ 
           'type': 'text', 
-          'content': 'Took a fucking note on that', 
+          'content': 'Took a note on that', 
         }], 
         conversation={ 
           'memory': { 'key': 'value' } 
         } 
       ) 
     else:
+        update_good_conv()
         return jsonify( 
         status=200, 
         replies=[{ 
