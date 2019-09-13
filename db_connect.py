@@ -26,7 +26,7 @@ class DBConnect():
         self.cur.close()
         self.end_connection()
 
-    def update_good_conv():
+    def update_good_conv(self):
         self.db_connection()
         self.cur = self.conn.cursor()
         self.cur.execute("SELECT good_conv FROM messages LIMIT 1;")
