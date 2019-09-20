@@ -50,7 +50,7 @@ def insert_message_info(state):
 
     if state == 'no':
         my_con.db_connection()
-        my_con.cur.execute("INSERT INTO messages_info(bad_mess_len) VALUES(%s);", % len_of_message)
+        my_con.cur.execute("INSERT INTO messages_info(bad_mess_len) VALUES(%s);", len_of_message)
         my_con.end_connection()    
 
 @app.route('/', methods=['POST'])
