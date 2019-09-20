@@ -35,7 +35,7 @@ def getMessages():
     else:
         logging.log(logging.WARNING, 'Empty Response Object')
 
-def insert_message_info():
+def insert_message_info(state):
     response = requests.get('https://api.cai.tools.sap/connect/v1/conversations/' + data['conversation']['id'],
       headers={'Authorization': '54187a3945f3af9ea86d40ebca0400f2'}
     )
@@ -63,7 +63,7 @@ def index():
     data = json.loads(request.get_data())
     if data['nlp']['intents'][0]['slug'] == 'no':
         my_con.update_bad_conv()
-        insert_message_info()
+        insert_message_info('no')
         return jsonify( 
         status=200, 
         replies=[{ 
