@@ -39,7 +39,7 @@ def insert_message_info():
     response = requests.get('https://api.cai.tools.sap/connect/v1/conversations/' + data['conversation']['id'],
       headers={'Authorization': '54187a3945f3af9ea86d40ebca0400f2'}
     )
-    response.json()
+    d = response.json()
     l = ''
     for i in range(len(d['results']['messages'])):
         l = l + ' ' + str(d['results']['messages'][i]['attachment']['content'])
