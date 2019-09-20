@@ -53,14 +53,14 @@ def insert_message_info(state):
         my_con.cur.execute("INSERT INTO messages_info(bad_mess_len) VALUES(%s);", [len_of_message])
         my_con.cur.execute("SELECT ROUND(AVG(bad_mess_len)) FROM messages_info;")
         av = my_con.cur.fetchone()[0]
-        my_con.cur.execute('INSERT INTO messages_info(bad_mess_avr) VALUES(%s)',[av])
+        my_con.cur.execute("UPDATE messages_info SET bad_mess_avr = %s)",[av])
         my_con.end_connection()
     elif state == 'yes':
         my_con.db_connection()
         my_con.cur.execute("INSERT INTO messages_info(good_mess_len) VALUES(%s);", [len_of_message])
         my_con.cur.execute("SELECT ROUND(AVG(good_mess_len)) FROM messages_info;")
         av = my_con.cur.fetchone()[0]
-        my_con.cur.execute('INSERT INTO messages_info(good_mess_avr) VALUES(%s)',[av])
+        my_con.cur.execute("UPDATE messages_info SET good_mess_avr = %s)",[av])
         my_con.end_connection()
             
     
